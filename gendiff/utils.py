@@ -6,7 +6,7 @@ def parse_args():
     parser.add_argument("secondfile", type=pathlib.Path, help="the file to be compared")
     return parser.parse_args()
 
-def parse_files(*filepaths) -> list[dict]:
+def parse_files(*filepaths):
     result = []
     for filepath in filepaths: 
         with open(filepath, 'r', encoding='utf-8') as f:
