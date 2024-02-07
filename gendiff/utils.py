@@ -9,6 +9,10 @@ def parse_args():
 def parse_files(*filepaths):
     result = []
     for filepath in filepaths: 
-        with open(filepath, 'r', encoding='utf-8') as f:
-            result.append(json.load(f))
+        if str(filepath).endwith('.json'):
+            result.append(read_json(filepath))
     return result
+
+def read_json(path):
+    with open(path, 'r', encoding='utf-8') as f:
+         return(json.load(f))
