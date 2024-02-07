@@ -1,4 +1,4 @@
-import argparse, json, pathlib
+import argparse, json, yaml, pathlib
     
 def parse_args():    
     parser = argparse.ArgumentParser(description='Compares files and outputs the result')
@@ -15,4 +15,8 @@ def parse_files(*filepaths):
 
 def read_json(path):
     with open(path, 'r', encoding='utf-8') as f:
-         return(json.load(f))
+        return json.load(f)
+
+def read_yaml(path):
+    with open(path, 'r', encoding='utf-8') as f:
+        return yaml.load(f)
