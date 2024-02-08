@@ -1,4 +1,4 @@
-import argparse, json, pathlib
+import argparse, json, yaml, pathlib
     
 def parse_args():    
     parser = argparse.ArgumentParser(description='Compares files and outputs the result')
@@ -6,9 +6,19 @@ def parse_args():
     parser.add_argument("secondfile", type=pathlib.Path, help="the file to be compared")
     return parser.parse_args()
 
-def parse_files(*filepaths) -> list[dict]:
+def parse_files(*filepaths):
     result = []
     for filepath in filepaths: 
-        with open(filepath, 'r', encoding='utf-8') as f:
-            result.append(json.load(f))
+        if filepath.endswith('json'):
+            result.append(read_json(filepath))
+        elif filepath.endswith(('.yaml', '.yml')):
+            result.append(read_yaml(filepath))
     return result
+
+def read_json(path):
+    with open(path, 'r', encoding='utf-8') as f:
+        return json.load(f)
+
+def read_yaml(path):
+    with open(path, 'r', encoding='utf-8') as f:
+        return yaml.load(f, Loader=yaml.Loader)
