@@ -3,7 +3,14 @@ from gendiff.utils import parse_files
 
 def generate_diff(file_path1, file_path2):
     '''
+    Compares two files as data structures. Supports json and yaml formats
 
+        Params:
+            file_path1 (PosixPath): the file to compare with
+            file_path2 (PosixPath): the file to be compared
+
+        Return:
+            result (str): the result of the comparison
     '''
     list_of_changes = []
     first_file, sec_file = parse_files(file_path1, file_path2)
