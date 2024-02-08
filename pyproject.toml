@@ -6,7 +6,7 @@ authors = ["e.panin <fath34d@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.8"
+python = "^3.8.1"
 pyyaml = "^6.0.1"
 
 [tool.poetry.scripts]
@@ -15,6 +15,7 @@ gendiff = "gendiff.scripts.entry:main"
 [tool.poetry.group.dev.dependencies]
 pytest = "^8.0.0"
 pytest-cov = "^4.1.0"
+flake8 = "^7.0.0"
 
 [build-system]
 requires = ["poetry-core"]
