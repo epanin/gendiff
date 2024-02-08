@@ -9,8 +9,10 @@ def parse_args():
 def parse_files(*filepaths):
     result = []
     for filepath in filepaths: 
-        if str(filepath).endwith('.json'):
+        if filepath.endswith('json'):
             result.append(read_json(filepath))
+        elif filepath.endswith(('.yaml', '.yml')):
+            result.append(read_yaml(filepath))
     return result
 
 def read_json(path):
@@ -19,4 +21,4 @@ def read_json(path):
 
 def read_yaml(path):
     with open(path, 'r', encoding='utf-8') as f:
-        return yaml.load(f)
+        return yaml.load(f, Loader=yaml.Loader)
