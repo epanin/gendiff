@@ -17,25 +17,29 @@ def generate_diff(file_path1, file_path2):
     full_changes = sec_file.copy()
     full_changes.update(first_file)
     for key, value in full_changes.items():
-        if isinstance(value, bool):
-            value_str = str(value).lower()
-        else:
-            value_str = str(value)
+        
+        value_view = str(value).lower() if isinstance(value, bool) else str(value)
+        
+        element_deleted = key not in sec_file
+        if element_deleted:
+            list_of_changes.append(('  - ', key, value_view))
+            continue
 
-        if key not in sec_file:
-            list_of_changes.append(('  - ', key, value_str))
-        else:
-            if value == sec_file.get(key):
-                if key not in first_file:
-                    list_of_changes.append(('  + ', key, value_str))
-                else:
-                    list_of_changes.append(('    ', key, value_str))
-            else:
-                list_of_changes.append(('  - ', key, value_str))
-                new_value = sec_file.get(key)
-                if isinstance(new_value, bool):
-                    new_value = str(new_value).lower()
-                list_of_changes.append(('  + ', key, new_value))
+        element_add = key not in first_file
+        if element_add:
+            list_of_changes.append(('  + ', key, value_view))
+            continue
+            
+        element_same = value == sec_file.get(key)
+        if element_same:
+            list_of_changes.append(('    ', key, value_view))
+            continue
+        else: # element_changed
+            list_of_changes.append(('  - ', key, value_view))
+            new_value = sec_file.get(key)
+            new_value_view = str(new_value).lower() if isinstance(new_value, bool) else str(new_value)
+            list_of_changes.append(('  + ', key, new_value_view))        
+
     list_of_changes.sort(key=lambda x: x[1])
     return transform_view(list_of_changes)
 
