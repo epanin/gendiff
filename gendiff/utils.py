@@ -17,9 +17,9 @@ def parse_args():
 def parse_files(*filepaths):
     result = []
     for filepath in filepaths:
-        if filepath.endswith('json'):
+        if filepath.suffix == '.json':
             result.append(read_json(filepath))
-        elif filepath.endswith(('.yaml', '.yml')):
+        elif filepath.suffix in ('.yaml', '.yml'):
             result.append(read_yaml(filepath))
     return result
 
