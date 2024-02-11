@@ -1,4 +1,5 @@
 from gendiff.utils import parse_files
+from gendiff.format import transform_view
 from itertools import chain
 
 
@@ -43,13 +44,6 @@ def generate_diff(file_path1, file_path2):
 
     list_of_changes.sort(key=lambda x: x[1])
     return transform_view(list_of_changes)
-
-
-def transform_view(list_of_changes):
-    answer = '{\n'
-    for action, key, value in list_of_changes:
-        answer = answer + action + str(key) + ': ' + str(value) + '\n'
-    return answer + '}\n'
 
 
 def stringify(value, replacer=' ', spaces_count=1):
